@@ -1,32 +1,44 @@
 # CatchUp Workflow — Zero to Speed
 
-Get fully up to speed from zero context in under 60 seconds. Read everything that matters, check what changed, verify everything works.
+Get fully up to speed from zero context in under 60 seconds. Read project state, check what changed, verify everything works.
 
 Trigger: `/ultimate-loop catch-up` or at session start when context is fresh.
+
+## Configuration
+
+Before using this workflow, set these variables to match your project:
+
+```bash
+APP_ROOT="/your/app/root"        # e.g. /root/myapp
+WEB_ROOT="/var/www/yourapp"      # e.g. /var/www/myapp
+CONTEXT_DIR="/your/context/dir"  # Directory with your session notes / handoff files
+LOG_DIR="/your/app/logs"         # Your application log directory
+```
 
 ## Execution
 
 ### Step 1: Read Core Context Files (Parallel)
 
-Read these files in parallel to load full project state:
+Read your project context files — session state, recent changes, priorities.
+Adapt these paths to wherever you store your project memory:
 
 ```
-/root/claude-skills/memory/HANDOFF.md          — Session state, what was done, what's pending
-/root/claude-skills/memory/PHONE_LOG.md        — Activity from phone CLI sessions
-/root/claude-skills/memory/MASTER_PROMPT.md    — The operating manual (skim sections 1-4)
-/root/claude-skills/SOUL.md                    — Identity and behavioral context
+$CONTEXT_DIR/HANDOFF.md     — Session state, what was done, what's pending
+$CONTEXT_DIR/CHANGELOG.md   — Recent changes log
+$CONTEXT_DIR/PRIORITIES.md  — Current task priorities
 ```
+
+> Tip: if you don't have structured handoff files, read your git log and README instead.
 
 ### Step 2: Check What Changed Since Last Session
 
 ```bash
-# Recent file changes (last 24 hours)
-find /root/kiwubot \( -name "*.js" -o -name "*.py" \) -mtime -1 2>/dev/null | head -20
-find /var/www/kiwuuu -mtime -1 2>/dev/null | head -20
+# Recent file changes (last 24 hours) — adapt paths to your project
+find $APP_ROOT \( -name "*.js" -o -name "*.py" \) -mtime -1 2>/dev/null | head -20
+find $WEB_ROOT -mtime -1 2>/dev/null | head -20
 
 # Git log (last 5 commits)
-cd /root/kiwubot && git log --oneline -5 2>/dev/null
-cd /root/claude-skills && git log --oneline -5 2>/dev/null
+cd $APP_ROOT && git log --oneline -5 2>/dev/null
 
 # PM2 restart counts (indicates crashes or deployments)
 sudo /usr/local/bin/pm2 jlist 2>/dev/null | python3 -c "
@@ -45,7 +57,8 @@ for p in procs:
 Run the Quick workflow endpoints + PM2 check:
 
 ```bash
-for url in "https://kiwuuu.com" "https://app.kiwuuu.com" "http://localhost:4000/health" "http://localhost:3003/health"; do
+# Adapt URLs to your project
+for url in "https://your-domain.com" "https://app.your-domain.com" "http://localhost:YOUR_PORT/health"; do
   code=$(curl -s -o /dev/null -w "%{http_code}" -H "User-Agent: Mozilla/5.0" "$url" 2>/dev/null)
   echo "$code $url"
 done
@@ -58,17 +71,11 @@ free -h | head -3
 ### Step 4: Check Pending Actions
 
 ```bash
-# Cold email status
-python3 /root/kiwubot/social/cold_email_sequencer.py status 2>/dev/null | head -10
+# Recent log activity
+tail -20 $LOG_DIR/cron.log 2>/dev/null || tail -20 $LOG_DIR/app.log 2>/dev/null
 
-# Content queue
-ls /root/kiwubot/social/content_bank/brainstorm_$(date +%Y-%m-%d).md 2>/dev/null && echo "Today's brainstorm exists" || echo "No brainstorm for today"
-
-# Recent cron activity
-tail -20 /root/kiwubot/social/cron.log 2>/dev/null
-
-# Check for any replies/notifications
-tail -5 /var/log/kiwuuu-outreach.log 2>/dev/null
+# Your pending queue checks here
+# e.g. python3 $APP_ROOT/scripts/status.py 2>/dev/null | head -10
 ```
 
 ### Step 5: Generate Session Brief
@@ -78,15 +85,12 @@ Output a concise brief:
 ```
 ## Session Brief — [populate with: python3 -c "from datetime import datetime; print(datetime.now().strftime('%Y-%m-%d %H:%M'))"]
 
-**Last Session:** [session number, key actions from HANDOFF]
+**Last Session:** [key actions from HANDOFF or git log]
 **Services:** [X/X] online
 **Resources:** Disk X% | RAM X% | Swap X%
 **Recent Changes:** [files modified in last 24h]
-**Pending Actions:** [from HANDOFF priorities]
-**Cold Email:** [X sent, X replies, X follow-ups due]
-**Content:** [queue depth, last post time]
-
-**Recommended First Action:** [highest-priority task from MASTER_PROMPT]
+**Pending Actions:** [from HANDOFF / issue tracker]
+**Recommended First Action:** [highest-priority task]
 ```
 
 ## Integration with Full Loop

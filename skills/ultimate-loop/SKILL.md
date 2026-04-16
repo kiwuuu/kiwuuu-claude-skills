@@ -35,8 +35,8 @@ ULTIMATE LOOP — System Verification
   [PASS] mesh-coordinator — 200
 
 --- PM2 SERVICES ---
-  [PASS] Root PM2 (7 online) — kiwubot, saas-app, n8n, kiwuuu-server...
-  [PASS] App PM2 (3 online) — mesh-coordinator, memory-bridge, control-panel
+  [PASS] Root PM2 (7 online) — your-services...
+  [PASS] App PM2 (3 online) — your-app-services
 
 --- SECURITY ---
   [PASS] SSH keys exist — 412 bytes
