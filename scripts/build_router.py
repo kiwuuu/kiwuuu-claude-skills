@@ -36,6 +36,24 @@ MIN_DESCRIPTION_CHARS = 120
 # Anthropic's hard limit on the description field.
 MAX_DESCRIPTION_CHARS = 1024
 
+# A description needs *some* clause telling Claude when to fire, but the wording
+# varies widely across skill authors — Anthropic's own bundled skills use
+# "Use this skill any time…", "Trigger whenever…", and "Use only when…".
+# Matching just the literal "USE WHEN" flags well-written skills as broken.
+TRIGGER_PATTERNS = (
+    r"\buse\s+(?:this|it|these|that)?\s*(?:skill\s+)?(?:only\s+)?(?:when|whenever|any\s?time)\b",
+    r"\btrigger(?:s|ed)?\s+(?:when|whenever|on|especially|for|in)\b",
+    r"\bfor\s+use\s+when\b",
+    r"\bwhen\s+the\s+user\b",
+    r"\bapplies?\s+when\b",
+    r"\buse\s+for\b",
+)
+
+# Only an explicit `USE WHEN:` / `Use when:` list is comma-separable into
+# keywords. Prose trigger clauses are left whole — splitting them on commas
+# produces fragments, not routable phrases.
+KEYWORD_LIST_PATTERN = r"\bUSE WHEN\b\s*:\s*(.*)$"
+
 
 def parse_frontmatter(text):
     """Return (frontmatter_dict, body) from a SKILL.md.
@@ -61,8 +79,15 @@ def parse_frontmatter(text):
     buffer = []
 
     def flush():
-        if key is not None:
-            data[key] = " ".join(part.strip() for part in buffer if part.strip()).strip()
+        if key is None:
+            return
+        value = " ".join(part.strip() for part in buffer if part.strip()).strip()
+        # Quoted scalars are common in bundled skills; carrying the quotes and
+        # backslash escapes through would corrupt both the index and the
+        # description length check.
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+            value = value[1:-1].replace('\\"', '"').replace("\\'", "'")
+        data[key] = value
 
     for line in lines[1:end]:
         match = re.match(r"^([A-Za-z0-9_-]+):\s*(.*)$", line)
@@ -79,19 +104,25 @@ def parse_frontmatter(text):
 
 
 def split_description(description):
-    """Split a description into (what_it_does, [trigger_keywords]).
+    """Split a description into (what_it_does, [trigger_keywords], has_trigger_clause).
 
-    Recognises the `USE WHEN:` / `Use when` convention. Skills that omit it
-    return an empty keyword list, which the report flags.
+    An explicit `USE WHEN:` list yields routable keywords. A prose trigger
+    clause ("Use this skill any time…", "Trigger whenever…") yields no keywords
+    but still counts as a trigger clause — it routes fine, it just can't be
+    turned into a route table mechanically.
     """
-    match = re.search(r"\bUSE WHEN\b\s*:?\s*(.*)$", description, re.IGNORECASE | re.DOTALL)
+    has_trigger = any(
+        re.search(pattern, description, re.IGNORECASE)
+        for pattern in TRIGGER_PATTERNS
+    )
+
+    match = re.search(KEYWORD_LIST_PATTERN, description, re.IGNORECASE | re.DOTALL)
     if not match:
-        return description.strip(), []
+        return description.strip(), [], has_trigger
 
     what = description[:match.start()].strip()
-    raw = match.group(1)
-    keywords = [k.strip(" .;") for k in re.split(r"[,;]", raw)]
-    return what, [k for k in keywords if k]
+    keywords = [k.strip(" .;") for k in re.split(r"[,;]", match.group(1))]
+    return what, [k for k in keywords if k], True
 
 
 def parse_routing_table(body):
@@ -152,7 +183,7 @@ def scan_skill(skill_dir):
 
     front, body = parse_frontmatter(text)
     description = front.get("description", "")
-    what, keywords = split_description(description)
+    what, keywords, has_trigger = split_description(description)
 
     workflows = []
     workflow_dir = next(
@@ -177,6 +208,7 @@ def scan_skill(skill_dir):
         "description": description,
         "what": what,
         "keywords": keywords,
+        "has_trigger": has_trigger,
         "routing": parse_routing_table(body),
         "workflows": workflows,
         "body_lines": len(body.split("\n")),
@@ -193,8 +225,8 @@ def lint(skill):
         problems.append(f"description only {length} chars — too thin to win selection")
     if length > MAX_DESCRIPTION_CHARS:
         problems.append(f"description {length} chars — over the {MAX_DESCRIPTION_CHARS} limit")
-    if not skill["keywords"]:
-        problems.append("no USE WHEN clause — no trigger keywords")
+    if not skill["has_trigger"]:
+        problems.append("no trigger clause — nothing tells Claude when to fire")
     if skill["body_lines"] > BODY_LINE_LIMIT:
         problems.append(f"body {skill['body_lines']} lines — over the {BODY_LINE_LIMIT} guideline")
     if skill["workflows"] and not skill["routing"]:
