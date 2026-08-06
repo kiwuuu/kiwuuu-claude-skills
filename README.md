@@ -108,6 +108,20 @@ Queue: 4 items pending review. Run `approve all` to schedule.
 
 ---
 
+## Routing
+
+[`ROUTER.md`](ROUTER.md) is the map: what every skill and workflow does, the trigger keywords that select each one, the overlaps that cause mis-routes, and which skills are safe to invoke by mistake.
+
+The index and route table are generated from the skills themselves:
+
+```bash
+python3 scripts/build_router.py skills/ --out ROUTER.md
+```
+
+Point it at any skills directory to map a full install — `python3 scripts/build_router.py ~/.claude/skills --out ROUTER.md`. It also lints for the things that silently break skill selection: missing descriptions, absent `USE WHEN` clauses, bodies over 500 lines, and workflow files with no routing table.
+
+---
+
 ## How Claude Code Skills Work
 
 Skills are plain Markdown files that load into Claude's context when triggered. They contain:

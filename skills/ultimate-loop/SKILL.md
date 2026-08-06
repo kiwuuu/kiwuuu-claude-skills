@@ -4,9 +4,15 @@ version: 2.2.0
 status: production
 last-updated: 2026-04-16
 description: >
-  Parallel system verification for VPS-hosted stacks. Checks endpoints, process managers,
-  security, resources, and content assets in under 30 seconds. Produces a scored PASS/FAIL report.
-  USE WHEN: ultimate loop, health check, verify everything, test all endpoints, run checks, catch up.
+  Read-only verification for VPS-hosted stacks. Checks HTTP endpoints, PM2 process counts, SSH keys,
+  disk/RAM/swap thresholds, and media asset inventory in parallel, then prints a scored PASS/FAIL
+  report with failures itemized. Never fixes, deploys, restarts, or generates anything — every
+  operation is a check, so a wrong invocation costs only seconds.
+  USE WHEN: ultimate loop, run checks, verify everything, health check, system check, smoke test,
+  sanity check, is the site up, is everything running, are services online, uptime, ping endpoints,
+  test all endpoints, pm2 status, disk full, after deploy, did anything break, regression check,
+  catch up, catch me up, where were we, what changed, session start, brief me, get up to speed,
+  check assets, asset inventory, is the media live.
 ---
 
 ## Customization
@@ -60,10 +66,10 @@ ULTIMATE LOOP: 14/14 PASS
 
 | Trigger | Workflow |
 |---------|----------|
-| Full system verification (all checks) | `Workflows/Full.md` |
-| Quick health check (endpoints + PM2 only) | `Workflows/Quick.md` |
-| Session start / zero context / catch up | `Workflows/CatchUp.md` |
-| Content-only verification | `Workflows/Content.md` |
+| ultimate loop, run checks, verify everything, full check, health check, system check, smoke test, sanity check, after deploy, did anything break, regression check | `Workflows/Full.md` |
+| quick check, fast check, is the site up, is everything running, are services online, uptime, ping endpoints, pm2 status | `Workflows/Quick.md` |
+| catch up, catch me up, where were we, what changed, session start, zero context, brief me, get up to speed | `Workflows/CatchUp.md` |
+| check assets, asset inventory, are the videos there, is the media live, content check, queue depth | `Workflows/Content.md` |
 
 ## Quick Reference
 

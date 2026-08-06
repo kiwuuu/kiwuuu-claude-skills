@@ -4,9 +4,15 @@ version: 1.0.0
 status: production
 last-updated: 2026-04-16
 description: >
-  Automated social media content pipeline: LLM generation → image/video production →
-  quality gate → multi-platform posting. Covers X, LinkedIn, Instagram, TikTok.
-  USE WHEN: generate content, post to social, content queue, content pipeline, social media, schedule posts.
+  Social content production pipeline: pillar-weighted LLM generation, FLUX images and LTX cinematic
+  video via fal.ai, ffmpeg text-overlay and ElevenLabs voiceover video, a 1-10 quality gate, and
+  rate-limited posting to X, LinkedIn, Instagram and TikTok. Writes to a SQLite queue, spends API
+  credits, and publishes publicly — confirm before running generate, run_due, or run_slot.
+  USE WHEN: generate content, generate posts, create posts, write a post, fill the queue, new content,
+  caption, carousel, reel, content pipeline, social media, schedule posts, post to social,
+  generate an image, FLUX, thumbnail, generate a video, LTX, cinematic, voiceover, text overlay video,
+  content stats, what posted today, pipeline status, engagement, content queue, approve post,
+  why didn't it post, posting failed, debug content, rate limit, quality gate, empty queue.
 ---
 
 # ContentFactory Skill — Kiwuuu Content Pipeline
@@ -38,9 +44,9 @@ The entire content production system in one skill. Text, images, videos, schedul
 
 | Trigger | Workflow |
 |---------|----------|
-| Generate content / fill queue | `Workflows/Generate.md` |
-| Check stats / debug / view logs | `Workflows/Report.md` |
-| Verify assets are live | `/ultimate-loop content` |
+| generate content, generate posts, create posts, write a post, fill the queue, new content, caption, carousel, reel, generate an image, FLUX, generate a video, LTX, cinematic, voiceover | `Workflows/Generate.md` |
+| content stats, what posted today, pipeline status, engagement, content queue, approve post, why didn't it post, posting failed, debug content, check the logs, rate limit, quality gate failed, empty queue | `Workflows/Report.md` |
+| verify assets are live, is the media accessible | `/ultimate-loop content` |
 
 ---
 
