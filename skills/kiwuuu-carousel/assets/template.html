@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>kiwuuu carousel template</title>
+<style>
+  /* ===== SKIN — edit these per channel (see SKILL.md channel table) ===== */
+  :root {
+    --accent: #e8542f;        /* Kiwuuu main: #b8e352 · REKT: #089981 · BLACK BOX: #2f6fe8 */
+    --bg: #f5ecdd;            /* cream. Kiwuuu main dark skin: #0a0c10 */
+    --ink: #1a1a1a;           /* body text. dark skin: #f0f0f0 */
+    --chip-bg: #1e1e1e;       /* icon chip */
+    --pill-bg: rgba(0,0,0,.06);
+    --pill-ink: #1a1a1a;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body { background: #333; font-family: "Inter", "Segoe UI", -apple-system, sans-serif; }
+
+  .slide {
+    width: 1080px; height: 1350px; position: relative; overflow: hidden;
+    background: var(--bg); padding: 110px 100px; margin: 20px auto;
+    display: flex; flex-direction: column;
+  }
+  /* decorative spheres — cheap 3D-blob motif */
+  .orb { position: absolute; border-radius: 50%; }
+  .orb.a { width: 300px; height: 300px; right: -80px; top: -90px;
+    background: radial-gradient(circle at 35% 30%, #fff5 0 8%, var(--accent) 60%); }
+  .orb.b { width: 150px; height: 150px; left: -50px; bottom: 240px;
+    background: radial-gradient(circle at 35% 30%, #fff8 0 10%, #e7d9bd 65%); }
+  .orb.c { width: 420px; height: 420px; right: -140px; bottom: -180px;
+    background: radial-gradient(circle at 35% 30%, #fff5 0 8%, var(--accent) 60%); }
+
+  .counter { position: absolute; top: 60px; right: 70px; font-size: 30px; font-weight: 700;
+    color: var(--ink); background: rgba(0,0,0,.08); padding: 10px 26px; border-radius: 40px; }
+
+  .chiprow { display: flex; align-items: center; gap: 34px; margin-bottom: 90px; }
+  .chip { width: 150px; height: 150px; border-radius: 38px; background: var(--chip-bg);
+    color: #fff; display: flex; align-items: center; justify-content: center; font-size: 64px;
+    box-shadow: 0 18px 30px rgba(0,0,0,.25); }
+  .kicker { font-size: 40px; font-weight: 800; letter-spacing: .02em; line-height: 1.25; }
+  .kicker .k1 { color: var(--accent); display: block; }
+  .kicker .k2 { color: var(--ink); text-transform: uppercase; }
+  .bignum { position: absolute; top: 90px; right: 120px; font-size: 260px; font-weight: 900;
+    color: rgba(0,0,0,.06); z-index: 0; }
+
+  .name { font-size: 120px; font-weight: 900; color: var(--ink); letter-spacing: -0.02em;
+    margin-bottom: 18px; z-index: 1; }
+  .promise { font-size: 52px; font-weight: 800; color: var(--accent); line-height: 1.2;
+    margin-bottom: 55px; z-index: 1; }
+  .body { font-size: 46px; line-height: 1.45; color: var(--ink); max-width: 880px; z-index: 1; }
+  .body b { font-weight: 800; }
+
+  .startrow { margin-top: auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; z-index: 1; }
+  .startlabel { font-size: 34px; font-weight: 800; letter-spacing: .08em; color: var(--ink); }
+  .startlabel::after { content: " →"; color: var(--accent); }
+  .pill { font-size: 34px; font-weight: 600; color: var(--pill-ink); background: var(--pill-bg);
+    border: 2px solid rgba(0,0,0,.15); padding: 16px 36px; border-radius: 50px; }
+  .pill.solid { background: var(--accent); color: #fff; border-color: transparent; }
+
+  /* hook + closer variants */
+  .hook .headline, .closer .headline { font-size: 108px; font-weight: 900; color: var(--ink);
+    line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 44px; z-index: 1; }
+  .hook .headline em, .closer .headline em { font-style: normal; color: var(--accent); }
+  .sub { font-size: 52px; color: var(--ink); line-height: 1.35; max-width: 840px; z-index: 1; }
+  .swipe { margin-top: auto; font-size: 40px; font-weight: 800; letter-spacing: .1em; z-index: 1; }
+  .swipe::after { content: " →"; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 — HOOK -->
+<div class="slide hook">
+  <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+  <div class="counter">1/12</div>
+  <div style="height:220px"></div>
+  <div class="kicker" style="margin-bottom:30px"><span class="k1">2026 BUSINESS PLAYBOOK</span></div>
+  <div class="headline">10 skills to build a <em>$10M</em> business in 2026.</div>
+  <div class="sub">Most people are sleeping on every single one of these.</div>
+  <div class="swipe">SWIPE</div>
+</div>
+
+<!-- SLIDE 2..N-1 — ITEM (duplicate this node per item) -->
+<div class="slide item">
+  <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+  <div class="counter">2/12</div>
+  <div class="bignum">01</div>
+  <div class="chiprow">
+    <div class="chip">🤖</div>
+    <div class="kicker"><span class="k1">TOOL 01</span><span class="k2">Name here</span></div>
+  </div>
+  <div class="name">Name.</div>
+  <div class="promise">One-line promise in accent. Quotable alone.</div>
+  <div class="body">Four to six lines, max ~55 words, exactly <b>one concrete number</b>.
+    Short spoken-rhythm sentences. End on the strongest claim.</div>
+  <div class="startrow">
+    <div class="startlabel">START WITH</div>
+    <div class="pill">action one</div>
+    <div class="pill">action two</div>
+    <div class="pill solid">action three</div>
+  </div>
+</div>
+
+<!-- FINAL SLIDE — CLOSER -->
+<div class="slide closer">
+  <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+  <div class="counter">12/12</div>
+  <div style="height:160px"></div>
+  <div class="kicker" style="margin-bottom:30px"><span class="k1">THE BOTTOM LINE</span></div>
+  <div class="headline">The people who <em>master</em> this win.</div>
+  <div class="sub" style="margin-bottom:50px">The people who don't will be replaced by the people who do.</div>
+  <div class="sub" style="margin-bottom:50px">Save this, come back to it, and start with one.</div>
+  <div class="swipe" style="letter-spacing:0">Which one are you starting with? <b>Comment below.</b></div>
+</div>
+
+</body>
+</html>

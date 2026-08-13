@@ -1,0 +1,171 @@
+# The 9-video drop shipped 2026-05-01 — first proven Kiwuuu Video Factory run.
+# Total time: ~10 min for all 9 (3 batches of 3, parallel within each batch).
+# Public gallery: https://kiwuuu.com/videos/
+
+concepts:
+
+  - slug: k_demo_22agents
+    prompt: >
+      Cinematic close-up of a smartphone screen lying flat on a dark surface,
+      twenty-two small glowing green dots arranged in a circle slowly converging into
+      one bright green WhatsApp avatar in the center of the screen.
+      Neon green accent against pure black, soft bloom glow,
+      smooth particle motion, professional product motion graphics, ultra clean, 4K
+    voiceover: >
+      Twenty-two specialised A.I. agents. One WhatsApp number.
+      Zero sleep. Your customers' messages get answered in two seconds —
+      at two p.m., or two a.m. Kiwuuu dot com.
+    captions:
+      - [0.4, 3.0, "22 AI AGENTS"]
+      - [3.2, 5.5, "1 WHATSAPP NUMBER"]
+      - [5.7, 8.0, "ZERO SLEEP"]
+      - [8.2, 10.5, "REPLIES IN 2 SECONDS"]
+      - [10.7, 12.0, "kiwuuu.com"]
+
+  - slug: k_demo_2am_lead
+    prompt: >
+      Smooth dolly push-in on a smartphone screen in a dark bedroom at night,
+      warm amber backlight from a window, the screen shows a WhatsApp chat opening,
+      green message bubbles cascading in one after another, typing indicator pulsing,
+      a green checkmark appearing as a booking confirmation card,
+      cinematic shallow depth of field, moody, professional product advertisement, 4K
+    voiceover: >
+      Two forty-seven a.m. A cold lead messages.
+      Most agencies miss this one — yours doesn't.
+      Kiwuuu replied in two seconds. Booking confirmed before sunrise.
+    captions:
+      - [0.3, 2.5, "2:47 AM"]
+      - [2.7, 5.0, "COLD LEAD MESSAGE"]
+      - [5.2, 7.5, "MOST AGENCIES MISS THIS"]
+      - [7.7, 10.0, "KIWUUU REPLIED IN 2s"]
+      - [10.2, 13.0, "BOOKING CONFIRMED"]
+
+  - slug: k_demo_autopilot
+    prompt: >
+      Fast-paced cinematic montage of dark monitor screens with neon green code text
+      scrolling rapidly, multiple browser windows opening and minimizing in sequence,
+      geometric design lines drawing a landing page wireframe in real time,
+      motion blur on cursor movements, futuristic tech advertisement,
+      moody dark room with green and amber rim lighting, 4K
+    voiceover: >
+      I prompted Claude. Claude designed the page. Claude Code deployed it.
+      Total time: five minutes. No browser. No designer.
+      This is what A.I. agents look like in production.
+    captions:
+      - [0.3, 2.5, "I PROMPTED CLAUDE"]
+      - [2.7, 5.0, "CLAUDE DESIGNED THE PAGE"]
+      - [5.2, 7.5, "CLAUDE CODE DEPLOYED IT"]
+      - [7.7, 10.0, "TOTAL TIME: 5 MINUTES"]
+      - [10.2, 13.5, "NO HUMAN TOUCHED THE BROWSER"]
+
+  - slug: k_demo_dental
+    prompt: >
+      Cinematic close-up of a smartphone screen at night next to a glass of water on a nightstand,
+      WhatsApp chat open showing a patient typing 'tooth pain emergency',
+      AI typing indicator, then a calendar slot appearing with 'TOMORROW 09:00' highlighted in green,
+      soft warm bedside lamp glow, blue-green digital glow from the phone screen,
+      shallow depth of field, professional product advertisement, dental healthcare context, 4K
+    voiceover: >
+      Eleven forty-seven p.m. Patient messages with emergency tooth pain.
+      Most clinics see this in the morning. Yours doesn't — Kiwuuu booked the appointment in sixty-one seconds.
+      Your patient sleeps. You wake up with a confirmed booking.
+    captions:
+      - [0.3, 3.0, "23:47 — TOOTH PAIN"]
+      - [3.2, 6.0, "MOST CLINICS: NEXT MORNING"]
+      - [6.2, 9.0, "KIWUUU: 61 SECONDS"]
+      - [9.2, 12.0, "BOOKING CONFIRMED"]
+      - [12.2, 14.5, "kiwuuu.com"]
+
+  - slug: k_demo_pricing
+    prompt: >
+      Bold typographic motion graphics on pure black background,
+      two large price tags floating side by side,
+      left tag dim grey shows '$15/mo per contact' with smaller crossed-out numbers ($75, $150, $300) cascading down,
+      right tag glows neon green #00ff66 shows '€97/mo flat — unlimited',
+      dramatic cinematic lighting, high contrast, kinetic typography,
+      professional finance advertisement aesthetic, JetBrains Mono font feel, 4K
+    voiceover: >
+      ManyChat charges fifteen dollars per active contact.
+      Three thousand customers? That's four-hundred-fifty a month, and climbing.
+      Kiwuuu is ninety-seven euros. Flat. Unlimited. White-label. Do the math.
+    captions:
+      - [0.3, 3.0, "MANYCHAT: $15 PER CONTACT"]
+      - [3.2, 5.5, "3000 CUSTOMERS = $450/mo"]
+      - [5.7, 8.5, "KIWUUU: €97 FLAT"]
+      - [8.7, 11.5, "UNLIMITED"]
+      - [11.7, 14.5, "DO THE MATH"]
+
+  - slug: k_demo_handoff
+    prompt: >
+      Cinematic overhead shot of three glowing green geometric AI avatar nodes arranged in a triangle on a dark surface,
+      a small green message bubble passing from the first node to the second, then to the third,
+      each node briefly pulsing with light as it receives the message,
+      neon green particle trails connecting them,
+      smooth motion graphics, deep black background,
+      professional tech advertisement, futuristic AI workflow visualization, 4K
+    voiceover: >
+      Twenty-two specialised agents talking to each other.
+      Lead arrives, the booker takes it. Hits a complex question, the qualifier steps in.
+      Misses an upsell, recovery picks it up.
+      Not one bot pretending to be twenty-two things — actual specialised workforce.
+    captions:
+      - [0.3, 3.0, "22 AGENTS"]
+      - [3.2, 6.0, "TALKING TO EACH OTHER"]
+      - [6.2, 9.0, "BOOKER → QUALIFIER → RECOVERY"]
+      - [9.2, 12.5, "REAL SPECIALISED WORKFORCE"]
+      - [12.7, 14.8, "kiwuuu.com"]
+
+  - slug: k_demo_dashboard
+    prompt: >
+      Cinematic close-up of a glowing dashboard interface on a dark monitor,
+      live counter numbers ticking up rapidly: '14,247 messages handled', '892 bookings confirmed', '€48k revenue captured',
+      neon green data lines and bar charts pulsing with live activity,
+      moody dark room with green rim lighting,
+      professional SaaS dashboard advertisement aesthetic, ultra clean motion graphics, 4K
+    voiceover: >
+      Fourteen thousand messages handled. Eight hundred ninety-two bookings confirmed.
+      Forty-eight thousand euros in revenue. Last thirty days.
+      While you slept. While your team was off. This is what twenty-two AI agents look like, in production.
+    captions:
+      - [0.3, 3.5, "14,247 MESSAGES"]
+      - [3.7, 6.5, "892 BOOKINGS"]
+      - [6.7, 9.5, "€48k REVENUE"]
+      - [9.7, 12.5, "WHILE YOU SLEPT"]
+      - [12.7, 16.0, "kiwuuu.com"]
+
+  - slug: k_demo_4channels
+    prompt: >
+      Cinematic top-down shot of four small smartphone screens arranged on a dark surface,
+      each showing a different channel: Instagram DM, Facebook Messenger, WhatsApp, an email inbox.
+      Glowing green particle streams flow from all four phones into one central glowing green hub with the WhatsApp logo.
+      Neon green particles, deep black background,
+      professional product motion graphics, ultra clean, futuristic AI hub visualization, 4K
+    voiceover: >
+      Instagram. Facebook. WhatsApp. Email.
+      Four channels. One inbox. One AI workforce answering all of them.
+      Stop juggling apps. Start letting the agents handle it.
+    captions:
+      - [0.3, 3.0, "INSTAGRAM"]
+      - [3.2, 5.5, "FACEBOOK"]
+      - [5.7, 8.0, "WHATSAPP"]
+      - [8.2, 10.5, "EMAIL"]
+      - [10.7, 13.0, "ONE INBOX. ONE WORKFORCE."]
+      - [13.2, 15.5, "kiwuuu.com"]
+
+  - slug: k_demo_brand_morph
+    prompt: >
+      Cinematic close-up of a glowing green geometric logo on pure black background,
+      the logo smoothly morphing through different industry icons: a tooth, a calendar, a house key, a coffee cup, a megaphone,
+      each transition is fluid and abstract with neon green particle trails,
+      dramatic motion graphics, deep black background,
+      futuristic brand identity reveal, professional advertisement, 4K
+    voiceover: >
+      Dental. Real estate. Agencies. Coaching. Restaurants.
+      Kiwuuu fits whatever you sell. White-label. Your brand. Your number. Your margin.
+    captions:
+      - [0.3, 2.5, "DENTAL"]
+      - [2.7, 5.0, "REAL ESTATE"]
+      - [5.2, 7.5, "AGENCIES"]
+      - [7.7, 10.0, "COACHING"]
+      - [10.2, 12.5, "WHITE-LABEL"]
+      - [12.7, 15.0, "kiwuuu.com"]
