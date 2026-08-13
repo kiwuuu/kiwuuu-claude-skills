@@ -6,10 +6,13 @@ last-updated: 2026-08-13
 description: >
   Writes the current session's state into the vault's _now.md so the next session — any machine,
   any tool — starts with zero catchup. Updates the Active/Waiting/Parked thread tables, stamps
-  dates, deletes finished rows, and commits. The write-side counterpart to ultimate-loop CatchUp,
-  which reads _now.md at session start.
+  dates, deletes finished rows, and commits. Ships now_doctor.py (mechanical rot checks plus a
+  Stop-hook guard that blocks ending a session with unsaved state) and a SessionEnd breadcrumb
+  hook that records facts even when no handoff happens. The write-side counterpart to
+  ultimate-loop CatchUp, which reads _now.md at session start.
   USE WHEN: handoff, save state, update now, wrap up, end session, ending for today, closing up,
-  before you go, park this, record where we are, save progress, update the now file, sync state.
+  before you go, park this, record where we are, save progress, update the now file, sync state,
+  now doctor, state doctor, check state health, stale threads, install handoff hooks.
 ---
 
 # session-state — the write side of never playing catchup
@@ -68,6 +71,27 @@ default branch. Never force-push. If push fails on network, retry with backoff (
 
 End with the updated Active table pasted into the reply, so the human sees exactly what
 the next session will see. No prose summary on top of it — the table is the summary.
+
+## Enforcement — the parts that don't rely on discipline
+
+Three scripts in `scripts/`, layered so state survives even a session that ignores every rule:
+
+| Layer | When it runs | What it does |
+|---|---|---|
+| `now_doctor.py --report` | Session start (CatchUp Step 1 runs it) | Flags Active rows stale >7d, Waiting rows dead >30d, Parked rows without a wake condition, `_now.md` older than the vault's newest commit, `_index.md` count drift. Exit 1 on findings. |
+| `now_doctor.py --guard` | Stop hook | If the workspace has commits newer than `_now.md`'s last update, blocks the stop once and instructs the handoff. One nag per session, silent when the invariant holds, exits 0 on any internal error. |
+| `session_breadcrumb.py` | SessionEnd hook | Appends per-repo branch/commits/dirty facts to `_breadcrumbs/<hostname>.log` in the vault. Per-hostname files so machines never Syncthing-conflict; trimmed to the newest 10 entries; never commits. |
+
+Run `analyze` intent through the doctor, not by eyeballing: **execute** `python3 scripts/now_doctor.py --report`.
+
+Install the two hooks once per machine (merges into `~/.claude/settings.json`, backs up, idempotent):
+
+```bash
+bash scripts/install_hooks.sh
+```
+
+The invariant all three defend: **`_now.md` is the last thing a working session commits.**
+When that holds, the guard is silent, the doctor is clean, and breadcrumbs are redundant.
 
 ## Boundaries
 

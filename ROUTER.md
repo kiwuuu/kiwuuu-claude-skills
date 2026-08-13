@@ -42,7 +42,7 @@ Social content production pipeline: pillar-weighted LLM generation, FLUX images 
 
 ### `session-state` — 1.0.0 · production
 
-Writes the current session's state into the vault's _now.md so the next session — any machine, any tool — starts with zero catchup. Updates the Active/Waiting/Parked thread tables, stamps dates, deletes finished rows, and commits. The write-side counterpart to ultimate-loop CatchUp, which reads _now.md at session start.
+Writes the current session's state into the vault's _now.md so the next session — any machine, any tool — starts with zero catchup. Updates the Active/Waiting/Parked thread tables, stamps dates, deletes finished rows, and commits. Ships now_doctor.py (mechanical rot checks plus a Stop-hook guard that blocks ending a session with unsaved state) and a SessionEnd breadcrumb hook that records facts even when no handoff happens. The write-side counterpart to ultimate-loop CatchUp, which reads _now.md at session start.
 
 ### `ultimate-loop` — 2.2.0 · production
 
@@ -60,7 +60,7 @@ Read-only verification for VPS-hosted stacks. Checks HTTP endpoints, PM2 process
 | `generate content`, `generate posts`, `create posts`, `write a post`, `fill the queue`, `new content`, `caption`, `carousel`, `reel`, `generate an image`, `FLUX`, `generate a video`, `LTX`, `cinematic`, `voiceover` | `content-factory` | `Workflows/Generate.md` |
 | `content stats`, `what posted today`, `pipeline status`, `engagement`, `content queue`, `approve post`, `why didn't it post`, `posting failed`, `debug content`, `check the logs`, `rate limit`, `quality gate failed`, `empty queue` | `content-factory` | `Workflows/Report.md` |
 | `verify assets are live`, `is the media accessible` | `content-factory` | `/ultimate-loop content` |
-| `handoff`, `save state`, `update now`, `wrap up`, `end session`, `ending for today`, `closing up`, `before you go`, `park this`, `record where we are`, `save progress`, `update the now file`, `sync state` | `session-state` | _(single mode)_ |
+| `handoff`, `save state`, `update now`, `wrap up`, `end session`, `ending for today`, `closing up`, `before you go`, `park this`, `record where we are`, `save progress`, `update the now file`, `sync state`, `now doctor`, `state doctor`, `check state health`, `stale threads`, `install handoff hooks` | `session-state` | _(single mode)_ |
 | `ultimate loop`, `run checks`, `verify everything`, `full check`, `health check`, `system check`, `smoke test`, `sanity check`, `after deploy`, `did anything break`, `regression check` | `ultimate-loop` | `Workflows/Full.md` |
 | `quick check`, `fast check`, `is the site up`, `is everything running`, `are services online`, `uptime`, `ping endpoints`, `pm2 status` | `ultimate-loop` | `Workflows/Quick.md` |
 | `catch up`, `catch me up`, `where were we`, `what changed`, `session start`, `zero context`, `brief me`, `get up to speed` | `ultimate-loop` | `Workflows/CatchUp.md` |

@@ -34,8 +34,19 @@ $CONTEXT_DIR/PRIORITIES.md  — Current task priorities
 ```
 
 > Tip: if you don't have structured handoff files, read your git log and README instead.
-> If `_now.md`'s `updated:` stamp is older than the newest git commits, trust git and
-> flag the staleness in the brief — stale state presented as current is worse than none.
+
+Then run the state doctor — it mechanizes the staleness and expiry checks (stale Active
+rows, dead Waiting rows, index drift, `_now.md` behind the vault's git HEAD) so none of
+them depend on you noticing:
+
+```bash
+python3 <skills>/session-state/scripts/now_doctor.py --report
+```
+
+Carry its findings into the session brief verbatim. If it reports STALE, trust git over
+`_now.md` — stale state presented as current is worse than none. Also glance at
+`$CONTEXT_DIR/_breadcrumbs/*.log`: if the last entry there is newer than `_now.md`'s
+update, a session ended without a handoff and the breadcrumb says what it touched.
 
 ### Step 2: Check What Changed Since Last Session
 
