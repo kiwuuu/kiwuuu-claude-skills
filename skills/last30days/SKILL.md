@@ -1,6 +1,9 @@
 ---
 name: last30days
 version: "3.3.2"
+# long-body: third-party execution-ordered prompt pipeline (steps 0-2.5 with
+# embedded shell contracts); splitting it would break upstream sync and step order.
+router-allow: long-body
 description: >
   Research what people actually say about any topic in the last 30 days — pulls posts and engagement
   from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web, then clusters and

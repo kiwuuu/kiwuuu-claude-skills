@@ -249,3 +249,85 @@ Use `search_templates` to find examples for your use case!
 
 **Part of**: n8n-skills repository
 **Conceived by**: Romuald Członkowski - [www.aiadvisors.pl/en](https://www.aiadvisors.pl/en)
+
+
+---
+
+<!-- moved from SKILL.md to keep it under the 500-line guideline -->
+
+## Quick Start Examples
+
+### Example 1: Simple Webhook → Slack
+```
+1. Webhook (path: "form-submit", POST)
+2. Set (map form fields)
+3. Slack (post message to #notifications)
+```
+
+### Example 2: Scheduled Report
+```
+1. Schedule (daily at 9 AM)
+2. HTTP Request (fetch analytics)
+3. Code (aggregate data)
+4. Email (send formatted report)
+5. Error Trigger → Slack (notify on failure)
+```
+
+### Example 3: Database Sync
+```
+1. Schedule (every 15 minutes)
+2. Postgres (query new records)
+3. IF (check if records exist)
+4. MySQL (insert records)
+5. Postgres (update sync timestamp)
+```
+
+### Example 4: AI Assistant
+```
+1. Webhook (receive chat message)
+2. AI Agent
+   ├─ OpenAI Chat Model (ai_languageModel)
+   ├─ HTTP Request Tool (ai_tool)
+   ├─ Database Tool (ai_tool)
+   └─ Window Buffer Memory (ai_memory)
+3. Webhook Response (send AI reply)
+```
+
+### Example 5: API Integration
+```
+1. Manual Trigger (for testing)
+2. HTTP Request (GET /api/users)
+3. Split In Batches (process 100 at a time)
+4. Set (transform user data)
+5. Postgres (upsert users)
+6. Loop (back to step 3 until done)
+```
+
+---
+
+
+## Real Template Examples
+
+From n8n template library:
+
+**Template #2947**: Weather to Slack
+- Pattern: Scheduled Task
+- Nodes: Schedule → HTTP Request (weather API) → Set → Slack
+- Complexity: Simple (4 nodes)
+
+**Webhook Processing**: Most common pattern
+- Most common: Form submissions, payment webhooks, chat integrations
+
+**HTTP API**: Common pattern
+- Most common: Data fetching, third-party integrations
+
+**Database Operations**: Common pattern
+- Most common: ETL, data sync, backup workflows
+
+**AI Agents**: Growing in usage
+- Most common: Chatbots, content generation, data analysis
+
+Use `search_templates` and `get_template` from n8n-mcp tools to find examples!
+
+---
+

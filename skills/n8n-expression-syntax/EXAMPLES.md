@@ -481,3 +481,113 @@ Conditions: {{$node["Weather API"].json.properties.shortForecast}}
 ---
 
 **Related**: See [COMMON_MISTAKES.md](COMMON_MISTAKES.md) for error examples and fixes.
+
+
+---
+
+<!-- moved from SKILL.md to keep it under the 500-line guideline -->
+
+## Working Examples
+
+For real workflow examples, see [EXAMPLES.md](EXAMPLES.md)
+
+### Example 1: Webhook to Slack
+
+**Webhook receives**:
+```json
+{
+  "body": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "message": "Hello!"
+  }
+}
+```
+
+**In Slack node text field**:
+```
+New form submission!
+
+Name: {{$json.body.name}}
+Email: {{$json.body.email}}
+Message: {{$json.body.message}}
+```
+
+### Example 2: HTTP Request to Email
+
+**HTTP Request returns**:
+```json
+{
+  "data": {
+    "items": [
+      {"name": "Product 1", "price": 29.99}
+    ]
+  }
+}
+```
+
+**In Email node** (reference HTTP Request):
+```
+Product: {{$node["HTTP Request"].json.data.items[0].name}}
+Price: ${{$node["HTTP Request"].json.data.items[0].price}}
+```
+
+### Example 3: Format Timestamp
+
+```javascript
+// Current date
+{{$now.toFormat('yyyy-MM-dd')}}
+// Result: 2025-10-20
+
+// Time
+{{$now.toFormat('HH:mm:ss')}}
+// Result: 14:30:45
+
+// Full datetime
+{{$now.toFormat('yyyy-MM-dd HH:mm')}}
+// Result: 2025-10-20 14:30
+```
+
+---
+
+
+## Advanced Patterns
+
+### Conditional Content
+
+```javascript
+// Ternary operator
+{{$json.status === 'active' ? 'Active User' : 'Inactive User'}}
+
+// Default values
+{{$json.email || 'no-email@example.com'}}
+```
+
+### Date Manipulation
+
+```javascript
+// Add days
+{{$now.plus({days: 7}).toFormat('yyyy-MM-dd')}}
+
+// Subtract hours
+{{$now.minus({hours: 24}).toISO()}}
+
+// Set specific date
+{{DateTime.fromISO('2025-12-25').toFormat('MMMM dd, yyyy')}}
+```
+
+### String Manipulation
+
+```javascript
+// Substring
+{{$json.email.substring(0, 5)}}
+
+// Replace
+{{$json.message.replace('old', 'new')}}
+
+// Split and join
+{{$json.tags.split(',').join(', ')}}
+```
+
+---
+

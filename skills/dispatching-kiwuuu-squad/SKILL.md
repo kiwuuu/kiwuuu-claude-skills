@@ -1,6 +1,6 @@
 ---
 name: dispatching-kiwuuu-squad
-description: Use when a Kiwuuu task spans 3+ files or 2+ subsystems (souls audit, landing batch, multi-tenant migration, content factory). Splits work into independent units, fans out parallel Task sub-agents with explicit deliverable contracts, then runs one synthesizer to merge results and log to the ops log (PHONE_LOG.md, currently at C:/Users/Korisnik/kiwuuu-backup/memory/ pending vault consolidation). Compresses 30-min serial passes into ~5-min parallel ones.
+description: Use when a Kiwuuu task spans 3+ files or 2+ subsystems (souls audit, landing batch, multi-tenant migration, content factory). Splits work into independent units, fans out parallel Task sub-agents with explicit deliverable contracts, then runs one synthesizer to merge results and log to the ops log (PHONE_LOG.md — resolve its location per the Ops log section; machine-dependent). Compresses 30-min serial passes into ~5-min parallel ones.
 license: MIT
 ---
 
@@ -57,6 +57,16 @@ For full templates with sub-agent briefs ready to copy-paste, read
 5. **content-factory-parallel** — image-gen + video-gen + copy-gen + scheduler in parallel
 
 Pick the template, customize the inputs, dispatch.
+
+## Ops log resolution (machine-dependent)
+
+PHONE_LOG.md and the vault live in different places per machine — resolve, don't assume:
+
+1. `$MEMPALACE_ROOT` if set (any machine)
+2. A nearby `kiwuuu-mempalace` checkout (VPS / cloud sessions)
+3. Windows cockpit only: `C:/Users/Korisnik/kiwuuu-backup/memory/` (PHONE_LOG.md) and `C:/Users/Korisnik/Obsidian/Kiwuuu/` (vault)
+
+If none resolves, put the log line in the synthesis output and say where it should have gone — never invent a path. The paths inside the context-pack below are cockpit-machine facts; keep them, but they are not where *you* write from other machines.
 
 ## Context-pack every sub-agent gets
 

@@ -203,6 +203,10 @@ def scan_skill(skill_dir):
                 ))
 
     return {
+        # `router-allow` opts a skill out of named lint rules (e.g. "long-body")
+        # with the justification kept in the skill itself — for third-party
+        # skills whose structure shouldn't be rewritten just to satisfy a lint.
+        "allow": front.get("router-allow", ""),
         "name": front.get("name") or os.path.basename(skill_dir),
         "dir": os.path.basename(skill_dir),
         "version": front.get("version", ""),
@@ -229,7 +233,7 @@ def lint(skill):
         problems.append(f"description {length} chars — over the {MAX_DESCRIPTION_CHARS} limit")
     if not skill["has_trigger"]:
         problems.append("no trigger clause — nothing tells Claude when to fire")
-    if skill["body_lines"] > BODY_LINE_LIMIT:
+    if skill["body_lines"] > BODY_LINE_LIMIT and "long-body" not in skill["allow"]:
         problems.append(f"body {skill['body_lines']} lines — over the {BODY_LINE_LIMIT} guideline")
     if skill["workflows"] and not skill["routing"]:
         problems.append("has workflow files but no Workflow Routing table")

@@ -78,7 +78,7 @@ When the user wants to optimize, improve, or increase conversions on any marketi
 
 ### `dispatching-kiwuuu-squad`
 
-Use when a Kiwuuu task spans 3+ files or 2+ subsystems (souls audit, landing batch, multi-tenant migration, content factory). Splits work into independent units, fans out parallel Task sub-agents with explicit deliverable contracts, then runs one synthesizer to merge results and log to the ops log (PHONE_LOG.md, currently at C:/Users/Korisnik/kiwuuu-backup/memory/ pending vault consolidation). Compresses 30-min serial passes into ~5-min parallel ones.
+Use when a Kiwuuu task spans 3+ files or 2+ subsystems (souls audit, landing batch, multi-tenant migration, content factory). Splits work into independent units, fans out parallel Task sub-agents with explicit deliverable contracts, then runs one synthesizer to merge results and log to the ops log (PHONE_LOG.md — resolve its location per the Ops log section; machine-dependent). Compresses 30-min serial passes into ~5-min parallel ones.
 
 ### `doc-coauthoring`
 
@@ -196,7 +196,7 @@ Generate, voice, caption, and deploy short vertical demo videos for Kiwuuu socia
 
 Director layer for faceless YouTube videos on the Higgsfield MCP — preset gallery pick, one-pass questionnaire, story beats, a DETAILED script pass (hook workshop, 10s-block word budgets, retention edit, fix loop with Kiwu), then a hard credit gate before any generation. USE WHEN the user says "make a youtube video", "video questionnaire", wants to plan/script an explainer, history, kids or story video, or asks to restart the youtube engine. Wraps faceless-channel-video — never generates until the script is LOCKED and credits approved.
 
-### `last30days` — 3.3.2
+### `last30days` — "3.3.2" # long-body: third-party execution-ordered prompt pipeline (steps 0-2.5 with # embedded shell contracts); splitting it would break upstream sync and step order.
 
 Research what people actually say about any topic in the last 30 days — pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web, then clusters and ranks them.
 
@@ -448,12 +448,7 @@ Use this skill any time a spreadsheet file is the primary input or output. This 
 
 ## Routing health
 
-| Skill | Problem |
-|---|---|
-| `last30days` | body 1649 lines — over the 500 guideline |
-| `n8n-expression-syntax` | body 596 lines — over the 500 guideline |
-| `n8n-node-configuration` | body 515 lines — over the 500 guideline |
-| `n8n-workflow-patterns` | body 543 lines — over the 500 guideline |
+All skills carry a description, trigger keywords, and a routing table.
 
 <!-- END GENERATED -->
 
@@ -578,10 +573,9 @@ new skill            →  skill-creator  →  build_router.py  →  fix Routing 
 
 ## Known issues
 
-- **Oversized bodies** (flagged by lint, left intact — third-party content): `last30days` (1649 lines), `n8n-expression-syntax`, `n8n-node-configuration`, `n8n-workflow-patterns`. Split into reference files when next touched.
 - **`last30days` reads browser cookies** (`chrome_cookies.py`, `safari_cookies.py`, X/Twitter auth) — same caveat as the Agent-Reach review: only feed it accounts you'd accept losing, and its scrapes of X/Instagram/TikTok carry ToS and ban risk.
-- **`remotion-captions`/`-create`/`-docs`/`-render`** duplicate folders inside `remotion-best-practices` — merge candidates.
-- **`dispatching-kiwuuu-squad`** hardcodes a Windows ops-log path (`C:/Users/Korisnik/...`) — breaks on VPS/cloud sessions until the vault consolidation it mentions happens.
+- **`last30days` body is 1713 lines by design** — a third-party, execution-ordered prompt pipeline with embedded shell contracts. It carries `router-allow: long-body` so the lint accepts it deliberately instead of flagging it forever; don't split it, it would break upstream sync and step order.
+- **remotion layout is intentional, not duplication** — the standalone `remotion-captions`/`-create`/`-docs`/`-render` skills are the selectable entry points; `remotion-best-practices` keeps identical copies internally as its own one-level-deep references (upstream Remotion skill design). Keep both; when editing content, edit both or neither.
 
 ---
 

@@ -399,3 +399,34 @@ When expression doesn't work:
 ---
 
 **Related**: See [EXAMPLES.md](EXAMPLES.md) for working examples of correct syntax.
+
+
+---
+
+<!-- moved from SKILL.md to keep it under the 500-line guideline -->
+
+## Debugging Expressions
+
+### Test in Expression Editor
+
+1. Click field with expression
+2. Open expression editor (click "fx" icon)
+3. See live preview of result
+4. Check for errors highlighted in red
+
+### Common Error Messages
+
+**"Cannot read property 'X' of undefined"**
+→ Parent object doesn't exist
+→ Check your data path
+
+**"X is not a function"**
+→ Trying to call method on non-function
+→ Check variable type
+
+**Expression shows as literal text**
+→ Missing {{ }}
+→ Add curly braces
+
+---
+
