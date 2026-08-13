@@ -19,16 +19,23 @@ LOG_DIR="/your/app/logs"         # Your application log directory
 
 ### Step 1: Read Core Context Files (Parallel)
 
-Read your project context files — session state, recent changes, priorities.
-Adapt these paths to wherever you store your project memory:
+**Read `_now.md` first.** It is the live session-state file the `session-state` skill
+maintains at the vault root (`$CONTEXT_DIR/_now.md`) — Active/Waiting/Parked thread
+tables where every `next` is executable without asking. If it exists, it is the
+authority on what's in flight; everything below only fills in detail.
+
+Then the supporting context files — adapt paths to wherever you store project memory:
 
 ```
+$CONTEXT_DIR/_now.md        — Live state: active threads, next actions, blockers  ← READ FIRST
 $CONTEXT_DIR/HANDOFF.md     — Session state, what was done, what's pending
 $CONTEXT_DIR/CHANGELOG.md   — Recent changes log
 $CONTEXT_DIR/PRIORITIES.md  — Current task priorities
 ```
 
 > Tip: if you don't have structured handoff files, read your git log and README instead.
+> If `_now.md`'s `updated:` stamp is older than the newest git commits, trust git and
+> flag the staleness in the brief — stale state presented as current is worse than none.
 
 ### Step 2: Check What Changed Since Last Session
 
@@ -85,7 +92,7 @@ Output a concise brief:
 ```
 ## Session Brief — [populate with: python3 -c "from datetime import datetime; print(datetime.now().strftime('%Y-%m-%d %H:%M'))"]
 
-**Last Session:** [key actions from HANDOFF or git log]
+**Last Session:** [key actions from _now.md or git log]
 **Services:** [X/X] online
 **Resources:** Disk X% | RAM X% | Swap X%
 **Recent Changes:** [files modified in last 24h]

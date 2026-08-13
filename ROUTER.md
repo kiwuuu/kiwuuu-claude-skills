@@ -31,7 +31,7 @@ Two consequences that shape everything here:
 
 <!-- BEGIN GENERATED -->
 
-## Skill index (2 skills)
+## Skill index (3 skills)
 
 ### `content-factory` — 1.0.0 · production
 
@@ -39,6 +39,10 @@ Social content production pipeline: pillar-weighted LLM generation, FLUX images 
 
 - `Workflows/Generate.md` — Step-by-step execution of the full content creation cycle: brief → generation → quality gate → queue.
 - `Workflows/Report.md` — Check pipeline status, diagnose failures, and pull engagement data.
+
+### `session-state` — 1.0.0 · production
+
+Writes the current session's state into the vault's _now.md so the next session — any machine, any tool — starts with zero catchup. Updates the Active/Waiting/Parked thread tables, stamps dates, deletes finished rows, and commits. The write-side counterpart to ultimate-loop CatchUp, which reads _now.md at session start.
 
 ### `ultimate-loop` — 2.2.0 · production
 
@@ -56,6 +60,7 @@ Read-only verification for VPS-hosted stacks. Checks HTTP endpoints, PM2 process
 | `generate content`, `generate posts`, `create posts`, `write a post`, `fill the queue`, `new content`, `caption`, `carousel`, `reel`, `generate an image`, `FLUX`, `generate a video`, `LTX`, `cinematic`, `voiceover` | `content-factory` | `Workflows/Generate.md` |
 | `content stats`, `what posted today`, `pipeline status`, `engagement`, `content queue`, `approve post`, `why didn't it post`, `posting failed`, `debug content`, `check the logs`, `rate limit`, `quality gate failed`, `empty queue` | `content-factory` | `Workflows/Report.md` |
 | `verify assets are live`, `is the media accessible` | `content-factory` | `/ultimate-loop content` |
+| `handoff`, `save state`, `update now`, `wrap up`, `end session`, `ending for today`, `closing up`, `before you go`, `park this`, `record where we are`, `save progress`, `update the now file`, `sync state` | `session-state` | _(single mode)_ |
 | `ultimate loop`, `run checks`, `verify everything`, `full check`, `health check`, `system check`, `smoke test`, `sanity check`, `after deploy`, `did anything break`, `regression check` | `ultimate-loop` | `Workflows/Full.md` |
 | `quick check`, `fast check`, `is the site up`, `is everything running`, `are services online`, `uptime`, `ping endpoints`, `pm2 status` | `ultimate-loop` | `Workflows/Quick.md` |
 | `catch up`, `catch me up`, `where were we`, `what changed`, `session start`, `zero context`, `brief me`, `get up to speed` | `ultimate-loop` | `Workflows/CatchUp.md` |
@@ -85,10 +90,11 @@ Applied:
 | "check the content" / "is it there" / "did it publish" | `ultimate-loop` → `Workflows/Content.md` | Verification. Counts files, HEADs URLs, reads queue depth. |
 | "make the content" / "post it" / "why is the queue empty" | `content-factory` | Production. Writes, renders, scores, posts. |
 
-Two more:
+Three more:
 
 - **"queue"** — `ultimate-loop/Content.md` reports queue *depth* as a health number. `content-factory/Report.md` inspects queue *contents* and acts on them. Depth only → `ultimate-loop`. Anything actionable → `content-factory`.
 - **"check the logs"** — cron/PM2/system logs → `ultimate-loop`. `social/cron.log` and posting failures → `content-factory/Report.md`.
+- **session state, both directions** — asking *what* the state is ("catch up", "where were we") → `ultimate-loop/CatchUp.md`, which reads `_now.md` first. Asking to *save* it ("handoff", "wrap up", "save state") → `session-state`, which writes `_now.md`. Read → CatchUp, write → session-state; a session normally uses both, at opposite ends.
 
 ---
 
@@ -99,6 +105,7 @@ Which mistakes are cheap, and which are not:
 | Skill | Side effects | Recovery |
 |---|---|---|
 | `ultimate-loop` | None — read-only. `sudo pm2 jlist`, HTTP GET/HEAD, `df`/`free`, file `stat`. | Free. A wrong route costs seconds. |
+| `session-state` | Writes exactly one file (`_now.md`) and commits it. Never touches rows for threads the session didn't work on. | Cheap. Any mistake is one `git revert` away. |
 | `content-factory` | **Writes.** Spends fal.ai and Anthropic credits, mutates `social.db`, and `run_due`/`run_slot` **publish publicly**. | Not free. Confirm before `run_due`, `run_slot`, or any `generate` when the queue is already full. |
 
 When intent is ambiguous between the two, run `ultimate-loop` first. It is the safe default.
@@ -110,12 +117,17 @@ When intent is ambiguous between the two, run `ultimate-loop` first. It is the s
 Common multi-skill sequences, so Claude proposes the next step instead of waiting to be asked:
 
 ```
-session start          →  ultimate-loop CatchUp  →  (if failures) ultimate-loop Full
+session start          →  ultimate-loop CatchUp (reads _now.md)  →  (if failures) ultimate-loop Full
+session end            →  session-state (writes _now.md)  →  next session's CatchUp starts warm
 after a deploy         →  ultimate-loop Full
 generate content       →  content-factory Generate  →  ultimate-loop Content
 content asset missing  →  ultimate-loop Content  →  content-factory Report
 posting broken         →  content-factory Report  →  ultimate-loop Full  (rules out infra)
 ```
+
+The first two chains close a loop: CatchUp ← `_now.md` ← session-state. That loop is the
+anti-catchup protocol — state lives in the vault file, never only in a session's context.
+Either half alone decays: writing without reading is a diary, reading without writing is fiction.
 
 `content-factory` also defers grading to the external `council` skill (4-agent scoring, post if avg ≥7/10) before high-stakes posts. That skill lives in the VPS install, not this repo.
 

@@ -108,6 +108,21 @@ Queue: 4 items pending review. Run `approve all` to schedule.
 
 ---
 
+### `session-state` — Never Play Catchup Again
+
+**Trigger:** `handoff`, `save state`, `wrap up`, `end session`
+
+Writes the session's real state — active threads, next actions, blockers — into `_now.md` at the vault root, then commits. The `next` column must pass one test: a fresh session with zero history can execute it without asking. Paired with `ultimate-loop catch-up`, which reads `_now.md` first at session start.
+
+```
+session end   →  session-state writes _now.md
+session start →  ultimate-loop CatchUp reads it
+```
+
+State lives in the file, never only in a dying context window. Either half alone decays: writing without reading is a diary, reading without writing is fiction.
+
+---
+
 ## Routing
 
 [`ROUTER.md`](ROUTER.md) is the map: what every skill and workflow does, the trigger keywords that select each one, the overlaps that cause mis-routes, and which skills are safe to invoke by mistake.
