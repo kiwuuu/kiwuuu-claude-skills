@@ -1,6 +1,9 @@
 ---
 name: remotion-create
-description: Creating a new Remotion video
+description: >
+  Scaffold a new Remotion video project: layout patterns, Tailwind setup, and composition structure.
+  USE WHEN: create a Remotion video, new Remotion project, start a React video, scaffold a
+  composition.
 metadata:
   tags: remotion
 ---

@@ -1,6 +1,9 @@
 ---
 name: character-rigging
-description: Build data-driven 2D character rigs for local animation: parts, pivots, layers, constraints, views, and reusable rig packages.
+description: >
+  Build data-driven 2D character rigs for local animation: parts, pivots, layers, constraints,
+  views, and reusable rig packages. USE WHEN: rig a character, build a character rig, set up pivots,
+  rig package, prepare a character for animation, 2D puppet.
 license: MIT
 ---
 

@@ -47,6 +47,8 @@ TRIGGER_PATTERNS = (
     r"\bwhen\s+the\s+user\b",
     r"\bapplies?\s+when\b",
     r"\buse\s+for\b",
+    r"\b(?:should\s+)?be\s+used\s+when\b",
+    r"\bfor\s+any\s+request\b",
 )
 
 # Only an explicit `USE WHEN:` / `Use when:` list is comma-separable into

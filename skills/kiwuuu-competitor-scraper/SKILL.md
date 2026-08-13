@@ -7,6 +7,12 @@ description: Scrape WhatsApp BSP and AI agent competitor websites every 24h, dif
 
 Daily ethical scrape of competitor homepages + public social metadata, diffed against yesterday, output as a content brief the video-factory + content-factory consume.
 
+## Workflow Routing
+
+| Trigger | Workflow |
+|---------|----------|
+| run the competitor scrape, check what competitors are doing, competitive content brief, daily digest, what changed at competitors | `Workflows/Daily.md` |
+
 ## Why this skill
 
 Sister to `kiwuuu-video-factory`. That skill makes content. This skill **decides what content to make** by surfacing what competitors changed in the last 24h:

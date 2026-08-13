@@ -1,6 +1,9 @@
 ---
 name: pose-library-design
-description: Design reusable 2D character pose libraries, action cycles, and expression states for data-driven animation.
+description: >
+  Design reusable 2D character pose libraries, action cycles, and expression states for data-driven
+  animation, so rigged characters ship with consistent composable poses. USE WHEN: pose library,
+  character poses, action cycle, walk cycle, expression states, idle set, pose presets.
 license: MIT
 ---
 

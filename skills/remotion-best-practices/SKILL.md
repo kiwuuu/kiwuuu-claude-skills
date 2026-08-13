@@ -1,6 +1,10 @@
 ---
 name: remotion-best-practices
-description: Best practices for Remotion
+description: >
+  Umbrella reference for building videos in Remotion: composition markup, captions, docs lookup,
+  rendering, SaaS player embedding, upgrades. USE WHEN: working in a Remotion project and no
+  narrower remotion-* skill fits, Remotion questions, React video code, @remotion packages. NOT for
+  HyperFrames compositions — hyperframes is its own entry point.
 metadata:
   tags: remotion, video, react, animation, composition
 ---

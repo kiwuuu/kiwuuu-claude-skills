@@ -1,6 +1,9 @@
 ---
 name: remotion-docs
-description: Search and fetch Remotion documentation pages
+description: >
+  Search and fetch Remotion documentation pages for exact API signatures and options. USE WHEN: look
+  up Remotion docs, Remotion API reference, how does a @remotion package work, check the Remotion
+  documentation.
 metadata:
   tags: remotion, docs, documentation, search
 ---

@@ -1,6 +1,9 @@
 ---
 name: remotion-render
-description: Best practices for rendering videos
+description: >
+  Render Remotion videos correctly: render commands, codec choices, transparent video output,
+  performance. USE WHEN: render the Remotion video, export the video, transparent background video,
+  Remotion render fails, codec settings.
 metadata:
   tags: remotion, render
 ---

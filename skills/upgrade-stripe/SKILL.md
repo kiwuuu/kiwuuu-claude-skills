@@ -1,6 +1,9 @@
 ---
 name: upgrade-stripe
-description: Guide for upgrading Stripe API versions and SDKs
+description: >
+  Guide for upgrading Stripe API versions and SDKs safely — changelogs, breaking changes, migration
+  order. USE WHEN: upgrade Stripe, bump the Stripe API version, Stripe SDK migration, pinned Stripe
+  version is old.
 
 ---
 

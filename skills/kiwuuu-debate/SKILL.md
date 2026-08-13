@@ -8,6 +8,13 @@ license: MIT
 
 One deliberation skill, three modes. Consolidated 2026-07-21 from `council`, `redteam`, and `kiwuuu-debate-team` (those are retired — this replaces all three).
 
+## Workflow Routing
+
+| Trigger | Workflow |
+|---------|----------|
+| council, debate, perspectives on X, red team, stress test, poke holes, counterargument, challenge each other | `Workflows/Debate.md` |
+| quick council, quick take, sanity check this decision | `Workflows/Quick.md` |
+
 ## Mode selection
 
 | User intent | Mode | Cost |

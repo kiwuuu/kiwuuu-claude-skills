@@ -1,6 +1,9 @@
 ---
 name: remotion-captions
-description: Dealing with captions in Remotion
+description: >
+  Captions in Remotion: transcribe audio to captions, import SRT files, and display word-timed
+  captions in compositions. USE WHEN: add captions in Remotion, subtitles in a Remotion video,
+  import SRT, transcribe for captions, word-by-word captions.
 metadata:
   tags: subtitles, captions, remotion, json
 ---
