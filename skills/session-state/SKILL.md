@@ -84,11 +84,15 @@ Three scripts in `scripts/`, layered so state survives even a session that ignor
 
 Run `analyze` intent through the doctor, not by eyeballing: **execute** `python3 scripts/now_doctor.py --report`.
 
-Install the two hooks once per machine (merges into `~/.claude/settings.json`, backs up, idempotent):
+Install the two hooks once per machine (merges into `~/.claude/settings.json`, backs up, idempotent, repoints stale paths if the checkout moved):
 
 ```bash
-bash scripts/install_hooks.sh
+python3 scripts/install_hooks.py     # any OS — on Windows: python scripts\install_hooks.py
 ```
+
+`install_hooks.sh` remains as a bash alias for the same merge on Linux/macOS. On Windows never
+invoke via `bash` — that routes into WSL, which may not exist or may be broken; the .py runs
+natively from PowerShell.
 
 The invariant all three defend: **`_now.md` is the last thing a working session commits.**
 When that holds, the guard is silent, the doctor is clean, and breadcrumbs are redundant.

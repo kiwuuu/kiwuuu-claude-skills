@@ -121,7 +121,7 @@ session start →  ultimate-loop CatchUp reads it
 
 State lives in the file, never only in a dying context window. Either half alone decays: writing without reading is a diary, reading without writing is fiction.
 
-Three scripts make the loop self-enforcing rather than remembered: `now_doctor.py --report` (expiry + drift checks, run at session start), `now_doctor.py --guard` (Stop hook — blocks ending a session whose commits are newer than `_now.md`, once), and `session_breadcrumb.py` (SessionEnd hook — records branch/commits/dirty facts per machine even when no handoff happened). Install the hooks once per machine: `bash skills/session-state/scripts/install_hooks.sh`.
+Three scripts make the loop self-enforcing rather than remembered: `now_doctor.py --report` (expiry + drift checks, run at session start), `now_doctor.py --guard` (Stop hook — blocks ending a session whose commits are newer than `_now.md`, once), and `session_breadcrumb.py` (SessionEnd hook — records branch/commits/dirty facts per machine even when no handoff happened). Install the hooks once per machine: `python3 skills/session-state/scripts/install_hooks.py` (all platforms — from PowerShell on Windows: `python skills\session-state\scripts\install_hooks.py`; do not use `bash` on Windows, it routes into WSL).
 
 ---
 
