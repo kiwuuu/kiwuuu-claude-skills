@@ -1,0 +1,93 @@
+# Competitors tracked daily by kiwuuu-competitor-scraper
+# Add/remove freely — slug, urls, focus drives the scrape + diff.
+
+competitors:
+
+  - slug: manychat
+    name: ManyChat
+    category: bsp
+    homepage: https://manychat.com/
+    pricing: https://manychat.com/pricing
+    blog: https://manychat.com/blog/
+    twitter: https://twitter.com/manychat
+    linkedin: https://www.linkedin.com/company/manychat/
+    focus: pricing tiers, MAC overage rates, WhatsApp BSP positioning
+
+  - slug: wati
+    name: Wati
+    category: bsp
+    homepage: https://www.wati.io/
+    pricing: https://www.wati.io/pricing/
+    blog: https://www.wati.io/blog/
+    twitter: https://twitter.com/wati_io
+    linkedin: https://www.linkedin.com/company/wati-io/
+    focus: per-MAC pricing, hidden Meta markup, dedicated server SKU
+
+  - slug: respond
+    name: Respond.io
+    category: bsp
+    homepage: https://respond.io/
+    pricing: https://respond.io/pricing
+    blog: https://respond.io/blog/
+    twitter: https://twitter.com/respond_io
+    linkedin: https://www.linkedin.com/company/respond-io/
+    focus: omnichannel positioning, AI agent additions
+
+  - slug: tidio
+    name: Tidio (Lyro)
+    category: bsp
+    homepage: https://www.tidio.com/
+    pricing: https://www.tidio.com/pricing/
+    blog: https://www.tidio.com/blog/
+    focus: Lyro AI tier pricing, contact-based gating
+
+  - slug: trengo
+    name: Trengo
+    category: bsp
+    homepage: https://trengo.com/
+    pricing: https://trengo.com/pricing
+    blog: https://trengo.com/blog
+    linkedin: https://www.linkedin.com/company/trengo/
+    focus: team-inbox positioning, EU pricing
+
+  - slug: sintra
+    name: Sintra AI
+    category: ai-agent
+    homepage: https://sintra.ai/
+    pricing: https://sintra.ai/pricing
+    blog: https://sintra.ai/blog
+    twitter: https://twitter.com/sintraai
+    focus: AI workforce framing, agent persona positioning
+
+  - slug: lindy
+    name: Lindy
+    category: ai-agent
+    homepage: https://www.lindy.ai/
+    pricing: https://www.lindy.ai/pricing
+    blog: https://www.lindy.ai/blog
+    twitter: https://twitter.com/lindyai
+    focus: AI agent automation framing, no-code positioning
+
+  - slug: sierra
+    name: Sierra
+    category: ai-agent
+    homepage: https://sierra.ai/
+    blog: https://sierra.ai/blog
+    twitter: https://twitter.com/sierraplatform
+    focus: enterprise AI agent positioning, brand voice claims
+
+  - slug: aisensy
+    name: AiSensy
+    category: bsp
+    homepage: https://www.aisensy.com/
+    pricing: https://www.aisensy.com/pricing/
+    blog: https://www.aisensy.com/blog/
+    focus: india/SEA WhatsApp positioning, agency-friendly tier
+
+  - slug: chatarmin
+    name: Chatarmin
+    category: bsp
+    homepage: https://chatarmin.com/
+    pricing: https://chatarmin.com/pricing
+    blog: https://chatarmin.com/en/blog
+    focus: DACH e-commerce specialization, WhatsApp marketing

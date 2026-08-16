@@ -108,6 +108,37 @@ Queue: 4 items pending review. Run `approve all` to schedule.
 
 ---
 
+### `session-state` — Never Play Catchup Again
+
+**Trigger:** `handoff`, `save state`, `wrap up`, `end session`
+
+Writes the session's real state — active threads, next actions, blockers — into `_now.md` at the vault root, then commits. The `next` column must pass one test: a fresh session with zero history can execute it without asking. Paired with `ultimate-loop catch-up`, which reads `_now.md` first at session start.
+
+```
+session end   →  session-state writes _now.md
+session start →  ultimate-loop CatchUp reads it
+```
+
+State lives in the file, never only in a dying context window. Either half alone decays: writing without reading is a diary, reading without writing is fiction.
+
+Three scripts make the loop self-enforcing rather than remembered: `now_doctor.py --report` (expiry + drift checks, run at session start), `now_doctor.py --guard` (Stop hook — blocks ending a session whose commits are newer than `_now.md`, once), and `session_breadcrumb.py` (SessionEnd hook — records branch/commits/dirty facts per machine even when no handoff happened). Install the hooks once per machine: `python3 skills/session-state/scripts/install_hooks.py` (all platforms — from PowerShell on Windows: `python skills\session-state\scripts\install_hooks.py`; do not use `bash` on Windows, it routes into WSL).
+
+---
+
+## Routing
+
+[`ROUTER.md`](ROUTER.md) is the map: what every skill and workflow does, the trigger keywords that select each one, the overlaps that cause mis-routes, and which skills are safe to invoke by mistake.
+
+The index and route table are generated from the skills themselves:
+
+```bash
+python3 scripts/build_router.py skills/ --out ROUTER.md
+```
+
+Point it at any skills directory to map a full install — `python3 scripts/build_router.py ~/.claude/skills --out ROUTER.md`. It also lints for the things that silently break skill selection: missing descriptions, absent `USE WHEN` clauses, bodies over 500 lines, and workflow files with no routing table.
+
+---
+
 ## How Claude Code Skills Work
 
 Skills are plain Markdown files that load into Claude's context when triggered. They contain:
