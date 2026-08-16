@@ -73,6 +73,12 @@ python .claude/skills/kiwuuu-analyze/bin/harvest.py fetch-all DIR --limit 20
   `credentials:'include'`, parse `__UNIVERSAL_DATA_FOR_REHYDRATION__`, then pipe the records to
   `harvest.py vtt DIR`. Signed subtitle URLs expire — use them the same session.
   Details in the script docstring + [[2026-08-03_tiktok-transcripts-without-supadata]].
+- **Cloud sessions (Claude Code on the web): tiktok.com is blocked by the container's egress
+  policy** — every fetch path above fails there, not just Supadata. Route the fetch through any
+  sandbox tool with TikTok egress (proven 2026-08-14 via the Higgsfield sandbox): curl the short
+  link with a browser UA, parse `__UNIVERSAL_DATA_FOR_REHYDRATION__` for metadata +
+  `subtitleInfos`, and download the signed VTT **in the same command** — the sandbox is ephemeral
+  and the URL expires. Then run Steps 2-4 normally; only the transport changes.
 - ASR mangles proper nouns ("Claude" → "cloud"/"CLAW"). Never quote a product name verbatim.
 
 ## Notes / reliability
